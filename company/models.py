@@ -8,20 +8,11 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
 class CompanyUser(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        related_name='company_user'
-    )
-    company = models.ForeignKey(
-        Company,
-        on_delete=models.CASCADE,
-        related_name='users'
-    )
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='company_user')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='users')
     role = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
