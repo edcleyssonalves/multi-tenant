@@ -10,19 +10,25 @@ def register_view(request):
             form.save()
             return redirect('login')
     else:
-        form = UserCreationForm
+        form = UserCreationForm()
+
     return render(request, 'registration/register.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST('username')
-        password = request.POST('password')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
             return redirect('product_list')
 
+    return render(request, 'registration/login.html')
+
+
 def logout_view(request):
     logout(request)
     return redirect('login')
-
